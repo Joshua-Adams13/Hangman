@@ -2,9 +2,9 @@
 
 const alphabet = [ 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 const answers = [
-    ["sloans lake", "chipotle", "stenger"],
-    ["lord of the rings", "we are the titans", "the avengers"],
-    ["avery hazyish", "bud light", "sippin pretty"]
+    ["london", "casa bonita", "honolulu"],
+    ["lord of the rings", "we are the titans", "ragnarok"],
+    ["avery", "budweiser", "odell"]
 ];
 let guesses = [ ];
 let word; 
@@ -26,9 +26,6 @@ let buttons = function() {
     let myButtons = document.getElementById('buttons');
     letters = document.createElement('ul');
 
-    letters.innerHTML = '<li>hi</li> <li>bye</li>'
- 
-
     for (let i = 0; i < alphabet.length; i++) {
 
         letterItem = document.createElement('li');
@@ -39,18 +36,6 @@ let buttons = function() {
         letters.appendChild(letterItem);
       
     }     
-
-    //    const joshsName = document.createElement('p')
-    // joshsName.innerHTML = 'hi i am josh'
-
-    // letters.appendChild(joshsName);
-
-    // const alex = document.createElement('p')
-    // alex.innerHTML = 'hi i am alex'
-
-    // letters.appendChild(alex);
-
- 
 
     myButtons.appendChild(letters);
 }
@@ -63,19 +48,13 @@ const RandomNumberBetweenZeroAndOne = Math.random()
 const RandomDecimalInMyLength = RandomNumberBetweenZeroAndOne * answers.length
 const indexOfTheRandomItemThatIWant = Math.floor(RandomDecimalInMyLength)
 
-let chosenAnswer = answers[indexOfTheRandomItemThatIWant]
-console.log('math.random: ',randNUmber)
-console.log('mltipl together', answers.length *randNUmber)
-
-console.log('and then floor', Math.floor(answers.length *randNUmber))
-
-let chosenAnswer = answers[Math.floor(Math.random() * answers.length];
+let chosenAnswer = answers[Math.floor(Math.random()) * answers.length];
 word = chosenAnswer[Math.floor(Math.random() * chosenAnswer.length)];
 console.log(word); 
 
 let selectCat = function() {    
        if (chosenAnswer === answers[0]) {
-        categoryName.innerHTML = "The Category is Our Favorite Places";
+        categoryName.innerHTML = "The Category is Places";
     } else if (chosenAnswer === answers[1]) {
         categoryName.innerHTML = "The Category is Movies";
     } else if (chosenAnswer === answers[2]) {
@@ -117,11 +96,75 @@ let comments = function () {
       }
 }
 
+// Animate man
+var animate = function () {
+    var drawMe = lives ;
+    drawArray[drawMe]();
+}
+
+// Hangman
+let head = function(){
+      let myStickman = document.getElementById("stickman");
+      let context = myStickman.getContext('2d');
+      context.beginPath();
+      context.arc(60, 25, 10, 0, Math.PI*2, true);
+      context.stroke();
+}
+    
+  let draw = function(pathFromx, pathFromy, pathTox, pathToy) {
+    let myStickman = document.getElementById("stickman");
+    let context = myStickman.getContext('2d');
+    context.beginPath();
+    context.strokeStyle = "#fff";
+    context.lineWidth = 2;
+    context.moveTo(pathFromx, pathFromy);
+    context.lineTo(pathTox, pathToy);
+    context.stroke(); 
+}
+
+   let frame1 = function() {
+     draw (0, 150, 150, 150);
+   };
+   
+   let frame2 = function() {
+     draw (10, 0, 10, 600);
+   };
+  
+   let frame3 = function() {
+     draw (0, 5, 70, 5);
+   };
+  
+   let frame4 = function() {
+     draw (60, 5, 60, 15);
+   };
+  
+   let torso = function() {
+     draw (60, 36, 60, 70);
+   };
+  
+   let rightArm = function() {
+     draw (60, 46, 100, 50);
+   };
+  
+   let leftArm = function() {
+     draw (60, 46, 20, 50);
+   };
+  
+   let rightLeg = function() {
+     draw (60, 70, 100, 100);
+   };
+  
+   let leftLeg = function() {
+     draw (60, 70, 20, 100);
+   };
+  
+  drawArray = [rightLeg, leftLeg, rightArm, leftArm,  torso,  head, frame4, frame3, frame2, frame1]; 
 
 
 // OnClick Function
 let check = function () {
     letterItem.onclick = function () {
+        if (lives > 0) {
         let guess = (this.innerHTML);
         this.setAttribute("class", "active")
         this.onclick = null;
@@ -135,11 +178,14 @@ let check = function () {
         if (j === -1) {
             lives -= 1;
             comments();
+            animate(); 
         } else {
             comments();
         }
-    }
-}
+    } 
+} 
+
+};
 
 // Play
 let play = function () {
@@ -156,9 +202,9 @@ play();
 
 getHint.onclick = function () {
     let hints = [
-        ["Where our first home is located", "A popular mexican restaraunt", "The best spot to get ice cream"],
+    ["The captial of England", "A popular mexican restaraunt in Denver", "The largest city in Hawaii"],
     ["Straight Out The Shire", "A football movie filled with racial challenges", "Super Heros"],
-    ["A thick and sweet beer brewed in Boulder, CO", "Classic baseball beer", "Pink beer brewed in Colorado"]
+    ["Located in Boulder,CO. Known for beers like Little Rascal", "A classic brewery considered a favorite among Mid-West baseball fans", "A brewry known for beers like Sippin' Pretty"]
     ];
 
     let categoryIndex = answers.indexOf(chosenAnswer);
